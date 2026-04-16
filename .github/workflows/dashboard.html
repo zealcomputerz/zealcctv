@@ -1,0 +1,181 @@
+
+dashboard_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Zeal Computer & CCTV Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-body">
+    <!-- Admin Navigation -->
+    <nav class="admin-nav">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>Zeal CCTV Admin</span>
+        </div>
+        <a href="#" id="logoutBtn" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </nav>
+
+    <div class="admin-container">
+        <div class="admin-grid">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <ul class="admin-menu">
+                    <li>
+                        <a href="#products" class="active" onclick="showSection('products')">
+                            <i class="fas fa-box"></i> Products
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#messages" onclick="showSection('messages')">
+                            <i class="fas fa-envelope"></i> Messages
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> View Website
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="admin-content">
+                <!-- Products Section -->
+                <div id="productsSection">
+                    <div class="admin-header">
+                        <h2><i class="fas fa-box"></i> Manage Products</h2>
+                        <button id="addProductBtn" class="btn-add">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                    </div>
+                    
+                    <div style="overflow-x: auto;">
+                        <table class="product-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Product Name</th>
+                                    <th>Price (LKR)</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody">
+                                <!-- Products loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Messages Section -->
+                <div id="messagesSection" style="display: none;">
+                    <div class="admin-header">
+                        <h2><i class="fas fa-envelope"></i> Customer Messages</h2>
+                    </div>
+                    <div id="messagesContainer">
+                        <!-- Messages loaded dynamically -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close" id="closeModal">&times;</span>
+            <h3 id="modalTitle" style="margin-bottom: 25px; color: var(--primary-color);">Add New Product</h3>
+            
+            <form id="productForm" class="modal-form">
+                <input type="hidden" id="productId">
+                
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" required placeholder="e.g., HD Dome Camera">
+                </div>
+                
+                <div class="form-group">
+                    <label for="productPrice">Price (Rs.)</label>
+                    <input type="number" id="productPrice" required placeholder="e.g., 8500" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDescription">Description</label>
+                    <textarea id="productDescription" rows="3" required placeholder="Brief product description..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productImage">Image URL</label>
+                    <input type="url" id="productImage" required placeholder="https://example.com/image.jpg">
+                    <small style="color: var(--text-gray); margin-top: 5px; display: block;">
+                        <i class="fas fa-info-circle"></i> Use direct image links from Unsplash, Pexels, etc.
+                    </small>
+                </div>
+                
+                <div class="image-preview" id="imagePreview">
+                    <div class="image-placeholder">
+                        <i class="fas fa-image"></i>
+                        <p>Enter image URL to preview</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeProductModal()" style="flex: 1;">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        <i class="fas fa-save"></i> Save Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h3 id="alertTitle">Success!</h3>
+                <p id="alertMessage">Operation completed successfully.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Section switching
+        function showSection(section) {
+            const productsSection = document.getElementById('productsSection');
+            const messagesSection = document.getElementById('messagesSection');
+            const menuLinks = document.querySelectorAll('.admin-menu a');
+            
+            menuLinks.forEach(link => link.classList.remove('active'));
+            
+            if (section === 'products') {
+                productsSection.style.display = 'block';
+                messagesSection.style.display = 'none';
+                menuLinks[0].classList.add('active');
+            } else if (section === 'messages') {
+                productsSection.style.display = 'none';
+                messagesSection.style.display = 'block';
+                menuLinks[1].classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>'''
+
+# Save the dashboard HTML file
+with open('/mnt/kimi/output/dashboard.html', 'w', encoding='utf-8') as f:
+    f.write(dashboard_html)
+
+print("✅ dashboard.html created successfully!")
+print(f"File size: {len(dashboard_html)} characters")
