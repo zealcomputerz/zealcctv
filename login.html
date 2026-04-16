@@ -1,0 +1,71 @@
+
+login_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Zeal Computer & CCTV Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-body">
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>Zeal CCTV</span>
+            </div>
+            <h2>Admin Login</h2>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-user" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-gray);"></i>
+                        <input type="text" id="username" required placeholder="Enter username" style="padding-left: 45px;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-lock" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-gray);"></i>
+                        <input type="password" id="password" required placeholder="Enter password" style="padding-left: 45px;">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            <p style="text-align: center; margin-top: 20px; color: var(--text-gray); font-size: 0.9rem;">
+                <i class="fas fa-info-circle"></i> Default: admin / 1234
+            </p>
+            <p style="text-align: center; margin-top: 15px;">
+                <a href="index.html" style="color: var(--accent-color); text-decoration: none;">
+                    <i class="fas fa-arrow-left"></i> Back to Website
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h3 id="alertTitle">Success!</h3>
+                <p id="alertMessage">Your message has been sent successfully.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>'''
+
+# Save the login HTML file
+with open('/mnt/kimi/output/login.html', 'w', encoding='utf-8') as f:
+    f.write(login_html)
+
+print("✅ login.html created successfully!")
+print(f"File size: {len(login_html)} characters")
